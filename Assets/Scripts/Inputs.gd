@@ -6,6 +6,7 @@ var right = false
 var up = false
 var down = false
 var modifier = false
+var action1 = false
 
 func _input(event):
 	if event.is_action_pressed("left"):
@@ -28,6 +29,10 @@ func _input(event):
 		modifier = true
 	elif event.is_action_released("modifier"):
 		modifier = false
+	if event.is_action_pressed("action1"):
+		action1 = true
+	elif event.is_action_released("action1"):
+		action1 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
