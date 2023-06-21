@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://da6m2c1naux2v"
+path="res://.godot/imported/104 Peaceful Days.mp3-39d2e8e633314152ad094e93b088f960.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/104 Peaceful Days.mp3"
+dest_files=["res://.godot/imported/104 Peaceful Days.mp3-39d2e8e633314152ad094e93b088f960.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

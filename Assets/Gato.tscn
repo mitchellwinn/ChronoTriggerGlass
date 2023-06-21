@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://qd1ywv1yy6ap"]
+[gd_scene load_steps=12 format=3 uid="uid://qd1ywv1yy6ap"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/NPC.gd" id="1_svxbn"]
 [ext_resource type="Texture2D" uid="uid://cvjkavkrb12r8" path="res://Assets/SpriteSheets/gato.png" id="2_2ostr"]
 [ext_resource type="Script" path="res://Assets/Scripts/SimpleSort.gd" id="3_x8343"]
+[ext_resource type="Script" path="res://Assets/Scripts/Stats.gd" id="4_8k136"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_222jv"]
 size = Vector2(33, 16)
@@ -66,8 +67,11 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3myp"]
-radius = 57.0
-height = 116.0
+radius = 67.0
+height = 134.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cams6"]
+radius = 509.87
 
 [node name="Gato" type="CharacterBody2D"]
 collision_layer = 0
@@ -76,7 +80,7 @@ script = ExtResource("1_svxbn")
 defaultAnimation = "walkDown"
 interactAnimation = "sing"
 dialogueTrees = {
-0: ["/song res://Assets/Music/Chrono Trigger - Gato Song.mp3", "My name is Gato♪[p][indent]I have metal joints♪[p][indent]Beat me up♪[p][indent]And get 15 Silver Points♪", "/cuts gatoFightStart"]
+0: ["/song res://Assets/Music/Chrono Trigger - Gato Song.mp3", "My name is Gato♪[p][indent]I have metal joints♪[p][indent]Beat me up♪[p][indent]And earn 15 Silver Points♪", "/cuts gatoFightStart"]
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -89,7 +93,7 @@ texture_filter = 1
 position = Vector2(-2, -29)
 texture = ExtResource("2_2ostr")
 hframes = 35
-frame = 32
+frame = 26
 script = ExtResource("3_x8343")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
@@ -99,7 +103,7 @@ libraries = {
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(0, -8)
-collision_layer = 3
+collision_layer = 2
 collision_mask = 32768
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -113,5 +117,25 @@ freeze = true
 position = Vector2(-1.5, -6)
 shape = SubResource("RectangleShape2D_222jv")
 
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("4_8k136")
+characterName = "Gato"
+playerSlot = -1
+ownerOf = false
+
+[node name="HostileRange" type="Area2D" parent="."]
+position = Vector2(0, -8)
+collision_layer = 4
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HostileRange"]
+z_index = 11
+position = Vector2(-1, -12)
+shape = SubResource("CircleShape2D_cams6")
+disabled = true
+debug_color = Color(0.901961, 0.305882, 0, 0.419608)
+
 [connection signal="body_entered" from="Area2D" to="Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="HostileRange" to="Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="HostileRange" to="Sprite2D" method="_on_area_2d_body_exited"]

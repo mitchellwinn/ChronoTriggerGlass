@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bp5afg46bavn2"
+path="res://.godot/imported/103 Morning Sunlight.mp3-0002fe1d54b1ecc19601b7ccde1fca4f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/103 Morning Sunlight.mp3"
+dest_files=["res://.godot/imported/103 Morning Sunlight.mp3-0002fe1d54b1ecc19601b7ccde1fca4f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

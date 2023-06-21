@@ -15,22 +15,23 @@ func go(npc):
 	await get_node("/root/Game/UI/TextBox").appear(.2)
 	var tree = npc.dialogueTrees[npc.dialogueTreeKey]
 	for i in tree.size():
-		if checkForCommands(tree[i]):
+		if checkForCommands(tree[i],npc):
 			continue
 		get_node("/root/Game/UI/TextBox/Text").text = tree[i]
 		get_node("/root/Game/UI/TextBox/Text").visible_ratio = 0
 		await get_tree().create_timer(.02).timeout
 		while get_node("/root/Game/UI/TextBox/Text").visible_ratio<1:
-			get_node("/root/Game/UI/TextBox/Text").visible_ratio += 0.01
-			await get_tree().create_timer(.03).timeout
+			get_node("/root/Game/UI/TextBox/Text").visible_ratio += 0.05
+			await get_tree().create_timer(.01).timeout
 		await next
 	await get_node("/root/Game/UI/TextBox").disappear(.2)
 	npc.talking = false
 	messageStatus = false
-	get_node("/root/Game/Music").stream = currentTrack
-	get_node("/root/Game/Music").play()
+	if get_node("/root/Game/Music").stream != currentTrack:
+		get_node("/root/Game/Music").stream = currentTrack
+		get_node("/root/Game/Music").play()
 	
-func checkForCommands(line):
+func checkForCommands(line,npc):
 	if line.substr(0,5)=="/song":
 		var songName = line.substr(6,-1)
 		get_node("/root/Game/Music").stream = load(songName)
@@ -40,6 +41,14 @@ func checkForCommands(line):
 	elif line.substr(0,5)=="/cuts":
 		var cutscene = line.substr(6,-1)
 		get_node("/root/Game/Cutscenes").play(cutscene)
+		return true
+	elif line.substr(0,5)=="/gold":
+		var amount = int(line.substr(6,-1))
+		#give player 200 gold
+		return true
+	elif line.substr(0,5)=="/tree":
+		var index = int(line.substr(6,-1))
+		npc.dialogueTreeKey = index
 		return true
 	return false
 	

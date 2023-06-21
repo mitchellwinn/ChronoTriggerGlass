@@ -11,7 +11,7 @@ func _physics_process(delta):
 	if target.global_position.y<global_position.y+15:
 		target.get_node("Sprite2D").z_index=4
 	else:
-		target.get_node("Sprite2D").z_index=6
+		target.get_node("Sprite2D").z_index=7
 
 
 func _on_area_2d_body_exited(body):

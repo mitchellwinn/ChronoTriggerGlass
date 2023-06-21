@@ -7,6 +7,7 @@ var up = false
 var down = false
 var modifier = false
 var action1 = false
+var screenCD = 0
 
 func _input(event):
 	if event.is_action_pressed("left"):
@@ -40,5 +41,5 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	pass

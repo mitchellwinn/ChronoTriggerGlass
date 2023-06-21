@@ -1,11 +1,121 @@
-[gd_scene load_steps=16 format=3 uid="uid://d4m7t5achhr2u"]
+[gd_scene load_steps=34 format=3 uid="uid://d4m7t5achhr2u"]
 
 [ext_resource type="Texture2D" uid="uid://cnyaupecfrx0q" path="res://Assets/SpriteSheets/chrono.png" id="1_8rdhy"]
 [ext_resource type="Script" path="res://Assets/Scripts/Character.gd" id="1_wpvi0"]
 [ext_resource type="Script" path="res://Assets/Scripts/Inputs.gd" id="2_k3n6i"]
+[ext_resource type="Texture2D" uid="uid://bjk0usaa82ri6" path="res://Assets/SpriteSheets/cronoMap.png" id="2_oht6s"]
+[ext_resource type="Script" path="res://Assets/Scripts/Stats.gd" id="4_hktt8"]
+[ext_resource type="AudioStream" uid="uid://b83ak48xmnggu" path="res://Assets/SFX/battleStart.mp3" id="4_mn8sp"]
+[ext_resource type="AudioStream" uid="uid://bjdn1eostj42y" path="res://Assets/SFX/00A_00.wav" id="5_0rlyc"]
+
+[sub_resource type="Animation" id="Animation_343kq"]
+resource_name = "idleDown"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_jg5tc"]
+resource_name = "idleSide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_6d3ut"]
+resource_name = "idleUp"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_qdajp"]
+resource_name = "walkDown"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_fymxs"]
+resource_name = "walkSide"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 7]
+}
+
+[sub_resource type="Animation" id="Animation_1gmij"]
+resource_name = "walkUp"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7tuqi"]
+_data = {
+"idleDown": SubResource("Animation_343kq"),
+"idleSide": SubResource("Animation_jg5tc"),
+"idleUp": SubResource("Animation_6d3ut"),
+"walkDown": SubResource("Animation_qdajp"),
+"walkSide": SubResource("Animation_fymxs"),
+"walkUp": SubResource("Animation_1gmij")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_222jv"]
-size = Vector2(12, 9)
+size = Vector2(9, 9.25)
 
 [sub_resource type="Animation" id="Animation_5q8hc"]
 resource_name = "blink"
@@ -176,26 +286,296 @@ tracks/0/keys = {
 "values": [19, 21, 22, 23, 25, 26]
 }
 
+[sub_resource type="Animation" id="Animation_o6qou"]
+resource_name = "enterCombat"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [26, 33, 37]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SFX:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_mn8sp")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_l2ql2"]
+resource_name = "idleCombat"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [38, 34, 38]
+}
+
+[sub_resource type="Animation" id="Animation_27rr0"]
+resource_name = "runCombat"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [57, 64]
+}
+
+[sub_resource type="Animation" id="Animation_7nt4f"]
+resource_name = "walkCombat"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [57, 59, 60, 61, 63, 63]
+}
+
+[sub_resource type="Animation" id="Animation_0lf33"]
+resource_name = "Combo1"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [39, 40, 46]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SFX:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_0rlyc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../SFX:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.83]
+}
+
+[sub_resource type="Animation" id="Animation_qsjuh"]
+resource_name = "Combo2"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [46, 47, 48, 49, 50, 51, 80]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SFX:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_0rlyc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../SFX:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.29]
+}
+
+[sub_resource type="Animation" id="Animation_43hsa"]
+resource_name = "Combo3"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [51, 53, 56]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SFX:stream")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_0rlyc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../SFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../SFX:pitch_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.92]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d3mxe"]
 _data = {
+"Combo1": SubResource("Animation_0lf33"),
+"Combo2": SubResource("Animation_qsjuh"),
+"Combo3": SubResource("Animation_43hsa"),
 "blink": SubResource("Animation_5q8hc"),
+"enterCombat": SubResource("Animation_o6qou"),
+"idleCombat": SubResource("Animation_l2ql2"),
 "idleDown": SubResource("Animation_5ib6a"),
 "idleSide": SubResource("Animation_3cnwq"),
 "idleUp": SubResource("Animation_rq5n2"),
+"runCombat": SubResource("Animation_27rr0"),
 "runDown": SubResource("Animation_b3m4d"),
 "runSide": SubResource("Animation_8vq2w"),
 "runUp": SubResource("Animation_fal4q"),
+"walkCombat": SubResource("Animation_7nt4f"),
 "walkDown": SubResource("Animation_6kbb4"),
 "walkSide": SubResource("Animation_naaeh"),
 "walkUp": SubResource("Animation_axr2g")
 }
 
-[node name="PlayerCharacter" type="CharacterBody2D"]
+[node name="Crono" type="CharacterBody2D"]
 collision_layer = 32768
 script = ExtResource("1_wpvi0")
+hasControl = true
+
+[node name="MapSprite" type="Sprite2D" parent="."]
+visible = false
+z_index = 6
+texture = ExtResource("2_oht6s")
+hframes = 3
+vframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MapSprite"]
+speed_scale = 0.6
+libraries = {
+"": SubResource("AnimationLibrary_7tuqi")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.5)
+position = Vector2(0, 5.375)
 shape = SubResource("RectangleShape2D_222jv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -203,8 +583,8 @@ z_index = 5
 texture_filter = 1
 position = Vector2(0, -14)
 texture = ExtResource("1_8rdhy")
-hframes = 27
-frame = 2
+hframes = 81
+frame = 46
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
@@ -216,11 +596,20 @@ script = ExtResource("2_k3n6i")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 26
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 5.5)
+position = Vector2(0, 5.389)
 shape = SubResource("RectangleShape2D_222jv")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("4_hktt8")
+characterName = "Crono"
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0rlyc")
+volume_db = -10.0
+pitch_scale = 1.83
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
